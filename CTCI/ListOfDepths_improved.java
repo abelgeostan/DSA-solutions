@@ -1,13 +1,15 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 // only works with perfectly balanced or complete binary trees
 
-public class ListOfDepths_First {
-    public static void main(String[] args) {
+public class ListOfDepths_improved {
+     public static void main(String[] args) {
         Node root = new Node("A");
 
         // Create the left and right children of the root (Depth 1)
@@ -52,9 +54,12 @@ public class ListOfDepths_First {
         rightChildG.children.add(leftChildN);
         rightChildG.children.add(rightChildO);
 
-        HashMap<Node,LinkedList<Node>> map=dfs(root); //roooooooot
-        bfs(root, map);
-        for(Node k:map.keySet()){
+        HashSet<Node> set=dfs(root);
+        HashMap<Integer,LinkedList<Node>> map=bfs(root, set); 
+        
+        
+        for(Integer k:map.keySet()){
+            System.out.print(k+": ");
             for(Node i:map.get(k)){
                 System.out.print(i.name);
             }
@@ -63,10 +68,10 @@ public class ListOfDepths_First {
 
     }
 
-    public static HashMap<Node,LinkedList<Node>> dfs(Node root){
-        HashMap<Node,LinkedList<Node>> map=new HashMap<>();
+    public static HashSet<Node> dfs(Node root){
+        HashSet<Node> set=new HashSet<>();
         while(root!=null){
-            map.put(root, new LinkedList<>());
+            set.add(root);
             if (!root.children.isEmpty()) {
                 root=root.children.get(0);
             }else{
@@ -74,10 +79,10 @@ public class ListOfDepths_First {
             }
             
         }
-        return map;
+        return set;
     }
 
-    public static void addItem(HashMap<Node,LinkedList<Node>> map,Node key,Node item){
+    public static void addItem(HashMap<Integer,LinkedList<Node>> map,Integer key,Node item){
         if (map.containsKey(key)) {
             LinkedList<Node> list=map.get(key);
             list.add(item);
@@ -86,18 +91,21 @@ public class ListOfDepths_First {
 
     }
 
-    public static void bfs(Node root,HashMap<Node,LinkedList<Node>> map){
+    public static HashMap<Integer,LinkedList<Node>> bfs(Node root,HashSet<Node> set){
         if (root==null) {
-            return;
+            return null;
         }else{
             Queue<Node> q= new LinkedList<>();
+            HashMap<Integer,LinkedList<Node>> map=new HashMap<>();
             q.offer(root);
             // visited.add(root);
-            if (map.containsKey(root)) {
-                addItem(map,root,root);
+            Integer key=0;
+            map.put(key, new LinkedList<>());
+            if (set.contains(root)) {
+                addItem(map,key,root);
             }
 
-            Node key=root;
+            
 
             while(!q.isEmpty()){
                 Node de=q.poll();
@@ -107,21 +115,20 @@ public class ListOfDepths_First {
                     //     q.offer(n);
                     // }
                     q.offer(n);
-                    if (map.containsKey(n)) {
-                        key=n;
+                    if (set.contains(n)) {
+                        key++;
+                        map.put(key, new LinkedList<>());
                     }
                     addItem(map, key, n);
                 }
             }
 
 
-
+            return map;
         }
 
     }
 
-
-    
 }
 
 
