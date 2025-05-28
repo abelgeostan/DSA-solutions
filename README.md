@@ -1,2 +1,2 @@
 # DSA-solutions
- coding questions from leetcode,hackerrank,etc
+ coding questions from leetcode,hackerrank,CTCI,etc
