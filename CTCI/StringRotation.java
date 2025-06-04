@@ -26,7 +26,7 @@ public class StringRotation {
     //             str=new StringBuilder();
     //         }
     //     }
-
+    
     //     int l=str.length();
     //     int sl=s1.length();
     //     StringBuilder x=new StringBuilder(s2.substring(0,sl-l));
