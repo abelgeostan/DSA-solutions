@@ -59,6 +59,10 @@ public class ZeroMatrix {
         }
     }
 
+    public static zeroM(int [][] mat,int m,int n){
+
+    }
+
 }
 
 
