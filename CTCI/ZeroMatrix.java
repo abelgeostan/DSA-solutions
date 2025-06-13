@@ -59,7 +59,7 @@ public class ZeroMatrix {
         }
     }
 
-    public static zeroM(int [][] mat,int m,int n){
+    public static void zeroM(int [][] mat,int m,int n){
 
     }
 
